@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin: 5px;
 }
 
@@ -9,7 +9,6 @@
   align-items: center;
   justify-content: center;
   background-color: lightblue;
-  margin-right: 10px;
   height: 40px;
   width: 60px;
   user-select: none;

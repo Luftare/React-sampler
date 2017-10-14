@@ -4,10 +4,6 @@ import './Pads.css'
 
 class Pads extends Component {
   
-  tapHandler = e => {
-    e.preventDefault();
-  }
-  
   render() {
     const pads = [];
     const rows = 4;
@@ -20,7 +16,7 @@ class Pads extends Component {
     }
     
     return (
-      <div className="pads" onTouchMove={this.tapHandler}>
+      <div className="pads">
         {pads.map((row, i) => {
           return <PadRow key={i} cols={row} index={i} triggerPad={this.props.triggerPad} />
         })}
