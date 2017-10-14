@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightblue;
+  margin-right: 10px;
+  height: 40px;
+  width: 60px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.button:active {
+  background-color: blue;
+  color: white;
+}

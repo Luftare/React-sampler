@@ -1,0 +1,14 @@
+.pad {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  background-color: #AAA;
+  user-select: none;
+  cursor: pointer;
+}
+
+.pad:active {
+  background-color: lightblue;
+}
