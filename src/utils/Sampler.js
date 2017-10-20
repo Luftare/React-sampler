@@ -3,7 +3,7 @@ import {Howl} from 'howler';
 
 export default class Sampler {
   constructor() {
-    this.spriteAtlas = ['kick1','kick2','snare1','snare2','hihat1', 'hihat2','hihat3','hihat4','tom1','tom2','crash1','crash2','bass1', 'bass2', 'chord1','fx',];
+    this.spriteAtlas = ['kick1','kick2','snare1','snare2','hihat1', 'hihat2','hihat3','hihat4','tom1','tom2','crash1','crash2','bass1', 'bass2', 'chord1','fx','klik1','klik2','clap'];
     this.sampleMap = [
       'bass1', 'bass2', 'chord1','fx',
       'tom1','tom2','crash1','crash2',
@@ -18,6 +18,10 @@ export default class Sampler {
       src: technoKit,
       sprite: this.createSprite()
     });
+  }
+  
+  triggerMetronome(isFirst) {
+    this.bank.play(isFirst? 'klik1' : 'klik2');
   }
   
   trigger(i) {

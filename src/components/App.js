@@ -8,22 +8,25 @@ import PreciseLoop from './../utils/PreciseLoop';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tempo: 60,
+      metronome: true,
+      looping: false,
+      step: 0,
+      sequences: (new Array(16)).fill([]),//2D array
+    };
     this.sampler = new Sampler();
     this.oldSequences = [];
     this.loop = new PreciseLoop({
       onTick: this.onTick,
       skipMissed: true,
-      dt: 200,
+      dt: this.BPMToDt(this.state.tempo),
     });
-    this.state = {
-      step: 0,
-      sequences: (new Array(8)).fill([]),//2D array
-    };
     this.lastTickTime = Date.now();
   }
   
   componentDidMount() {
-    //this.loop.start();
+    
   }
   
   addNote(note) {
@@ -45,16 +48,30 @@ class App extends Component {
     return progress > 0.5;
   }
   
-  setTempo = val => {
-    this.loop.dt = 60 * 1000 / val / 4;
+  BPMToDt(tempo) {
+    return 60 * 1000 / tempo / 4;
+  }
+  
+  setTempo = tempo => {
+    this.loop.dt = this.BPMToDt(tempo);
+    this.setState({tempo})
   }
   
   togglePlayback = () => {
     this.loop.active = !this.loop.active;
-    this.forceUpdate()
+    this.setState({
+      looping: this.loop.active
+    })
+  }
+  
+  toggleMetronome = () => {
+    this.setState({
+      metronome: !this.state.metronome,
+    })
   }
   
   undoNote = () => {
+    if(this.oldSequences.length === 0) return;
     this.setState({
       sequences: this.oldSequences.pop()
     })
@@ -76,6 +93,9 @@ class App extends Component {
    this.state.sequences[this.state.step].forEach(i => {
      this.sampler.trigger(i);
    })
+   if(this.state.metronome && step % 2 === 0) {
+     this.sampler.triggerMetronome(((step + 6) % 8) === 0);
+   }
   }
   
   triggerPad = i => {
@@ -85,7 +105,15 @@ class App extends Component {
   render() {
     return (
       <div className="machine">
-        <Controls undo={this.undoNote} reset={this.resetSequences} setTempo={this.setTempo} togglePlayback={this.togglePlayback} looping={this.loop.active}/>
+        <Controls 
+          undo={this.undoNote} 
+          reset={this.resetSequences} 
+          setTempo={this.setTempo} 
+          togglePlayback={this.togglePlayback} 
+          looping={this.state.looping} 
+          tempo={this.state.tempo} 
+          metronome={this.state.metronome}
+          toggleMetronome={this.toggleMetronome}/>
         <Pads triggerPad={this.triggerPad} />
       </div>
     );

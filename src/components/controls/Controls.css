@@ -8,14 +8,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: lightblue;
-  height: 40px;
-  width: 60px;
+  background-color: #AFA;
+  height: 30px;
+  width: 30px;
   user-select: none;
   cursor: pointer;
 }
 
 .button:active {
-  background-color: blue;
+  //background-color: blue;
   color: white;
+}
+
+.input[type=range] {
+  
 }
